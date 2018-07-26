@@ -8,23 +8,19 @@ An interactive script to download and build opencv and opencv_contrib for androi
 
 ### Installation
 ```sh
-$ git clone https://github.com/tzutalin/build-opencv-for-android.git
+$ git clone https://github.com/jefby/build-opencv-for-android
 $ cd build-opencv-for-android
-$ ./setup.sh 3.1.0
+$ git clone https://github.com/opencv/opencv && git checkout 3.4.2
+$ git clone https://github.com/opencv/opencv_contrib && git checkout 3.4.2
+$ 设置ANDROID_NDK_ROOT为ndk根路径
+
 ```
-By default, it will download opencv and opencv_contrib with 3.1.0 version. You can specify the version when executing ./setup.sh
-
-Extract and export your android path which is downloaded under ./android-ndk-downloader
-
-`$ export [ANDROID_NDK_PATH]`
-
-Build it
 
 ```sh
 $ ./build-android-opencv.sh
 ```
 
-The final library will be located in android_lib folder
+The final library will be located in android_opencv folder
 
 ### Liecnese
 Copyright (c) 2016 Tzutalin
