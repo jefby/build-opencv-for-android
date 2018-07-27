@@ -44,6 +44,7 @@ function build_opencv {
       -DCMAKE_TOOLCHAIN_FILE="${NDK_ROOT}/build/cmake/android.toolchain.cmake" \
       -DANDROID_NDK="${NDK_ROOT}" \
       -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+      -DANDROID_ARM_NEON=ON \
       -DANDROID_ABI="$ABI" \
       -D WITH_CUDA=OFF \
       -D WITH_MATLAB=OFF \
