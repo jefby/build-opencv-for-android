@@ -55,6 +55,8 @@ function build_opencv {
       -DOPENCV_EXTRA_MODULES_PATH="${WD}/opencv_contrib/modules/"  \
       -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}/opencv" \
       -D BUILD_ANDROID_PROJECTS=OFF \
+      -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -O3 -Wall" \
+      -DCMAKE_BUILD_TYPE=Release \
       ../../..
   make -j${N_JOBS}
   make install/strip
