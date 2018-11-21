@@ -1,6 +1,18 @@
 #!/usr/bin/env sh
+
+# 功能：
+# 编译arm64和armeabi-v7a版本的opencv with contrib
+# 会将结果安装到opencv
+#
+# Author: jefby
+# Date: 2018.11.21
+
 #NDK_ROOT="${1:-${NDK_ROOT}}"
 NDK_ROOT=${ANDROID_NDK_ROOT}
+if [ -z ${NDK_ROOT} ];then
+    echo “NDK_ROOT is empty!!” 
+    exit
+fi
 
 
 ### ABI setup
@@ -18,11 +30,6 @@ BUILD_DIR=$OPENCV_ROOT/platforms/build_android
 INSTALL_DIR=${WD}/android_opencv
 N_JOBS=${N_JOBS:-8}
 
-if [ "${ANDROID_ABI}" = "armeabi" ]; then
-    API_LEVEL=19
-else
-    API_LEVEL=21
-fi
 
 rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}"
@@ -33,7 +40,12 @@ cd "${BUILD_DIR}"
 function build_opencv {
   ABI=$1
 
-  pushd opencv
+  if [ "${ABI}" = "armeabi" ]; then
+    API_LEVEL=19
+  else
+    API_LEVEL=21
+  fi
+
 
   echo "Building Opencv for $ABI"
   mkdir build_$ABI
@@ -61,7 +73,6 @@ function build_opencv {
   make -j${N_JOBS}
   make install/strip
 
-  popd
   popd
 }
 
