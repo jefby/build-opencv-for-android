@@ -52,23 +52,24 @@ function build_opencv {
   pushd build_$ABI
   
 # collect install directories to build/install
-  cmake -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON \
-      -DCMAKE_TOOLCHAIN_FILE="${NDK_ROOT}/build/cmake/android.toolchain.cmake" \
-      -DANDROID_NDK="${NDK_ROOT}" \
-      -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
-      -DANDROID_ARM_NEON=ON \
-      -DANDROID_ABI="$ABI" \
+  cmake -D CMAKE_BUILD_WITH_INSTALL_RPATH=ON \
+      -D ANDROID_STL=c++_shared \
+      -D CMAKE_TOOLCHAIN_FILE="${NDK_ROOT}/build/cmake/android.toolchain.cmake" \
+      -D ANDROID_NDK="${NDK_ROOT}" \
+      -D ANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+      -D ANDROID_ARM_NEON=ON \
+      -D ANDROID_ABI="$ABI" \
       -D WITH_CUDA=OFF \
       -D WITH_MATLAB=OFF \
       -D BUILD_ANDROID_EXAMPLES=OFF \
       -D BUILD_DOCS=OFF \
       -D BUILD_PERF_TESTS=OFF \
       -D BUILD_TESTS=OFF \
-      -DOPENCV_EXTRA_MODULES_PATH="${WD}/opencv_contrib/modules/"  \
-      -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}/opencv" \
+      -D OPENCV_EXTRA_MODULES_PATH="${WD}/opencv_contrib/modules/"  \
+      -D CMAKE_INSTALL_PREFIX="${INSTALL_DIR}/opencv" \
       -D BUILD_ANDROID_PROJECTS=OFF \
-      -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -O3 -Wall" \
-      -DCMAKE_BUILD_TYPE=Release \
+      -D CMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -O3 -Wall" \
+      -D CMAKE_BUILD_TYPE=Release \
       ../../..
   make -j${N_JOBS}
   make install/strip
